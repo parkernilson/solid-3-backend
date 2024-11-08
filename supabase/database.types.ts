@@ -37,6 +37,7 @@ export type Database = {
       entries: {
         Row: {
           created_at: string
+          date_of: string
           goal: string
           id: string
           success: boolean
@@ -44,6 +45,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          date_of?: string
           goal: string
           id?: string
           success: boolean
@@ -51,6 +53,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          date_of?: string
           goal?: string
           id?: string
           success?: boolean
