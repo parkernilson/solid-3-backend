@@ -174,6 +174,24 @@ export type Database = {
         }
         Returns: undefined
       }
+      get_current_streak_info: {
+        Args: {
+          _goal_id: string
+        }
+        Returns: Database["public"]["CompositeTypes"]["current_streak_info"]
+      }
+      get_streaks: {
+        Args: {
+          _goal_id: string
+        }
+        Returns: {
+          start_date: string
+          end_date: string
+          streak_count: number
+          goal: string
+          sequence_id: number
+        }[]
+      }
       share_goal: {
         Args: {
           _goal_id: string
@@ -186,7 +204,12 @@ export type Database = {
       shared_goal_status: "pending" | "accepted" | "rejected"
     }
     CompositeTypes: {
-      [_ in never]: never
+      current_streak_info: {
+        current_period_success: boolean | null
+        start_date: string | null
+        end_date: string | null
+        streak_count: number | null
+      }
     }
   }
 }
