@@ -88,15 +88,7 @@ export type Database = {
           owner?: string
           title?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "goals_owner_fkey"
-            columns: ["owner"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       shared_goals: {
         Row: {
@@ -128,18 +120,28 @@ export type Database = {
             referencedRelation: "goals"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "shared_goals_shared_with_fkey"
-            columns: ["shared_with"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
         ]
       }
     }
     Views: {
-      [_ in never]: never
+      streak_summary: {
+        Row: {
+          end_date: string | null
+          goal: string | null
+          sequence_id: number | null
+          start_date: string | null
+          streak_count: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entries_goal_fkey"
+            columns: ["goal"]
+            isOneToOne: false
+            referencedRelation: "goals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       accept_shared_goal: {
@@ -179,18 +181,6 @@ export type Database = {
           _goal_id: string
         }
         Returns: Database["public"]["CompositeTypes"]["current_streak_info"]
-      }
-      get_streaks: {
-        Args: {
-          _goal_id: string
-        }
-        Returns: {
-          start_date: string
-          end_date: string
-          streak_count: number
-          goal: string
-          sequence_id: number
-        }[]
       }
       share_goal: {
         Args: {
@@ -294,5 +284,20 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    : never
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof PublicSchema["CompositeTypes"]
+    | { schema: keyof Database },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
 
