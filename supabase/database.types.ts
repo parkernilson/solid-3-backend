@@ -189,6 +189,15 @@ export type Database = {
         }
         Returns: undefined
       }
+      update_entry: {
+        Args: {
+          _entry_id: string
+          _text_content: string
+          _success: boolean
+          _date_of: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       shared_goal_status: "pending" | "accepted" | "rejected"
