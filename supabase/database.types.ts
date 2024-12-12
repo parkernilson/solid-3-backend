@@ -150,14 +150,6 @@ export type Database = {
         }
         Returns: undefined
       }
-      create_entry: {
-        Args: {
-          _goal_id: string
-          _success: boolean
-          _text_content?: string
-        }
-        Returns: undefined
-      }
       create_goal: {
         Args: {
           _title: string
@@ -189,14 +181,22 @@ export type Database = {
         }
         Returns: undefined
       }
-      update_entry: {
+      upsert_entry: {
         Args: {
-          _entry_id: string
-          _text_content: string
-          _success: boolean
-          _date_of: string
+          _goal_id: string
+          _entry_id?: string
+          _success?: boolean
+          _text_content?: string
+          _date_of?: string
         }
-        Returns: undefined
+        Returns: {
+          created_at: string
+          date_of: string
+          goal: string
+          id: string
+          success: boolean
+          text_content: string | null
+        }
       }
     }
     Enums: {
