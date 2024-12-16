@@ -1,0 +1,1 @@
+alter table "public"."shared_goals" alter column "shared_with" set not null;

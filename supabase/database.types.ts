@@ -90,26 +90,41 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          email: string
+          id: string
+        }
+        Insert: {
+          email: string
+          id: string
+        }
+        Update: {
+          email?: string
+          id?: string
+        }
+        Relationships: []
+      }
       shared_goals: {
         Row: {
           created_at: string
           goal: string
           id: number
-          shared_with: string | null
+          shared_with: string
           status: Database["public"]["Enums"]["shared_goal_status"]
         }
         Insert: {
           created_at?: string
           goal: string
           id?: number
-          shared_with?: string | null
+          shared_with: string
           status?: Database["public"]["Enums"]["shared_goal_status"]
         }
         Update: {
           created_at?: string
           goal?: string
           id?: number
-          shared_with?: string | null
+          shared_with?: string
           status?: Database["public"]["Enums"]["shared_goal_status"]
         }
         Relationships: [
