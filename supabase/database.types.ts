@@ -196,6 +196,13 @@ export type Database = {
         }
         Returns: undefined
       }
+      unshare_goal: {
+        Args: {
+          _goal_id: string
+          _with_user: string
+        }
+        Returns: undefined
+      }
       upsert_entry: {
         Args: {
           _goal_id: string
