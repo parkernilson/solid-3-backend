@@ -70,7 +70,7 @@ begin
     end loop;
 
 --     Share goals
-    insert into public.shared_goals (goal, shared_with, status)
+    insert into public.share_records (goal, shared_with, status)
     values (goal_2_id, user_1_id, 'pending');
 end;
 $$ language plpgsql;

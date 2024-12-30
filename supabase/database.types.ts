@@ -67,6 +67,13 @@ export type Database = {
             referencedRelation: "goals"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "entries_goal_fkey"
+            columns: ["goal"]
+            isOneToOne: false
+            referencedRelation: "shared_goals"
+            referencedColumns: ["goal_id"]
+          },
         ]
       }
       goals: {
@@ -105,7 +112,7 @@ export type Database = {
         }
         Relationships: []
       }
-      shared_goals: {
+      share_records: {
         Row: {
           created_at: string
           goal: string
@@ -135,10 +142,30 @@ export type Database = {
             referencedRelation: "goals"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "shared_goals_goal_fkey"
+            columns: ["goal"]
+            isOneToOne: false
+            referencedRelation: "shared_goals"
+            referencedColumns: ["goal_id"]
+          },
         ]
       }
     }
     Views: {
+      shared_goals: {
+        Row: {
+          goal_id: string | null
+          goal_owner_email: string | null
+          goal_owner_id: string | null
+          goal_title: string | null
+          share_record_id: number | null
+          share_status: Database["public"]["Enums"]["shared_goal_status"] | null
+          shared_on: string | null
+          shared_with: string | null
+        }
+        Relationships: []
+      }
       streak_summary: {
         Row: {
           end_date: string | null
@@ -154,6 +181,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "goals"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entries_goal_fkey"
+            columns: ["goal"]
+            isOneToOne: false
+            referencedRelation: "shared_goals"
+            referencedColumns: ["goal_id"]
           },
         ]
       }
