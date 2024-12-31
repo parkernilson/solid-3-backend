@@ -223,6 +223,12 @@ export type Database = {
         }
         Returns: Database["public"]["CompositeTypes"]["current_streak_info"]
       }
+      reject_shared_goal: {
+        Args: {
+          _goal_id: string
+        }
+        Returns: undefined
+      }
       share_goal: {
         Args: {
           _goal_id: string
