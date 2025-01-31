@@ -71,6 +71,13 @@ export type Database = {
             foreignKeyName: "entries_goal_fkey"
             columns: ["goal"]
             isOneToOne: false
+            referencedRelation: "shared_goal_previews"
+            referencedColumns: ["goal_id"]
+          },
+          {
+            foreignKeyName: "entries_goal_fkey"
+            columns: ["goal"]
+            isOneToOne: false
             referencedRelation: "shared_goals"
             referencedColumns: ["goal_id"]
           },
@@ -146,6 +153,13 @@ export type Database = {
             foreignKeyName: "shared_goals_goal_fkey"
             columns: ["goal"]
             isOneToOne: false
+            referencedRelation: "shared_goal_previews"
+            referencedColumns: ["goal_id"]
+          },
+          {
+            foreignKeyName: "shared_goals_goal_fkey"
+            columns: ["goal"]
+            isOneToOne: false
             referencedRelation: "shared_goals"
             referencedColumns: ["goal_id"]
           },
@@ -153,7 +167,7 @@ export type Database = {
       }
     }
     Views: {
-      shared_goals: {
+      shared_goal_previews: {
         Row: {
           goal_id: string | null
           goal_owner_email: string | null
@@ -163,6 +177,18 @@ export type Database = {
           share_status: Database["public"]["Enums"]["shared_goal_status"] | null
           shared_on: string | null
           shared_with: string | null
+        }
+        Relationships: []
+      }
+      shared_goals: {
+        Row: {
+          created_at: string | null
+          goal_id: string | null
+          owner: string | null
+          owner_email: string | null
+          shared_on: string | null
+          shared_with: string | null
+          title: string | null
         }
         Relationships: []
       }
@@ -181,6 +207,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "goals"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entries_goal_fkey"
+            columns: ["goal"]
+            isOneToOne: false
+            referencedRelation: "shared_goal_previews"
+            referencedColumns: ["goal_id"]
           },
           {
             foreignKeyName: "entries_goal_fkey"
