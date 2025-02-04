@@ -108,14 +108,17 @@ export type Database = {
         Row: {
           email: string
           id: string
+          profile_image_url: string | null
         }
         Insert: {
           email: string
           id: string
+          profile_image_url?: string | null
         }
         Update: {
           email?: string
           id?: string
+          profile_image_url?: string | null
         }
         Relationships: []
       }
