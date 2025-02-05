@@ -1,0 +1,2 @@
+INSERT INTO "storage"."buckets" ("id", "name", "owner", "created_at", "updated_at", "public", "avif_autodetection", "file_size_limit", "allowed_mime_types", "owner_id") VALUES
+        ('profile_pictures', 'profile_pictures', NULL, '2025-02-05 03:44:35.673706+00', '2025-02-05 03:44:35.673706+00', true, false, 512000, '{image/jpeg,image/png}', NULL);

@@ -279,6 +279,18 @@ export type Database = {
         }
         Returns: undefined
       }
+      update_profile: {
+        Args: {
+          _user_id: string
+          _email?: string
+          _profile_image_url?: string
+        }
+        Returns: {
+          email: string
+          id: string
+          profile_image_url: string | null
+        }
+      }
       upsert_entry: {
         Args: {
           _goal_id: string
