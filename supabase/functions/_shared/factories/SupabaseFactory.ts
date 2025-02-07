@@ -9,66 +9,58 @@ import type {
 } from "../supabase/supabase.ts";
 
 export class SupabaseFactory {
-    public createSupabaseAnon(): SupabaseAnon {
+    private createClient({ 
+        serviceRole = false,
+        authHeader,
+    }: {
+        serviceRole?: boolean,
+        authHeader?: string,
+    }): SupabaseClient {
         if (!Deno.env.get("SUPABASE_URL")) {
             throw new Error("SUPABASE_URL env var is required");
         }
         if (!Deno.env.get("SUPABASE_ANON_KEY")) {
             throw new Error("SUPABASE_ANON_KEY env var is required");
         }
+        if (!Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")) {
+            throw new Error("SUPABASE_SERVICE_ROLE_KEY env var is required");
+        }
+
+        return createClient<Database>(
+            Deno.env.get("SUPABASE_URL")!,
+            serviceRole
+                ? Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+                : Deno.env.get("SUPABASE_ANON_KEY")!,
+            authHeader ? {
+                global: {
+                    headers: {
+                        Authorization: authHeader,
+                    }
+                }
+            } : undefined
+        );
+    }
+
+    public createSupabaseAnon(): SupabaseAnon {
         return {
-            supabase: createClient<Database>(
-                Deno.env.get("SUPABASE_URL")!,
-                Deno.env.get("SUPABASE_ANON_KEY")!,
-            ),
+            supabase: this.createClient({}),
             role: "anon",
         };
     }
 
     public createSupabaseAdmin(): SupabaseAdmin {
-        if (!Deno.env.get("SUPABASE_URL")) {
-            throw new Error("SUPABASE_URL env var is required");
-        }
-        if (!Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")) {
-            throw new Error("SUPABASE_SERVICE_ROLE_KEY env var is required");
-        }
         return {
-            supabase: createClient<Database>(
-                Deno.env.get("SUPABASE_URL")!,
-                Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
-            ),
+            supabase: this.createClient({ serviceRole: true }),
             role: "service_role",
         };
     }
 
-    public async createSupabaseAuthenticated(
+    public createSupabaseAuthenticated(
         req: Request,
-    ): Promise<SupabaseAuthenticated> {
-        if (!Deno.env.get("SUPABASE_URL")) {
-            throw new Error("SUPABASE_URL env var is required");
-        }
-        if (!Deno.env.get("SUPABASE_ANON_KEY")) {
-            throw new Error("SUPABASE_ANON_KEY env var is required");
-        }
-
-        const supabase: SupabaseClient = createClient<Database>(
-            Deno.env.get("SUPABASE_URL")!,
-            Deno.env.get("SUPABASE_ANON_KEY")!,
-        );
-
-        // Get the session or user object
+    ): SupabaseAuthenticated {
         const authHeader = req.headers.get("Authorization")!;
-        const token = authHeader.replace("Bearer ", "");
-        // TODO: fix this...
-        // deno-lint-ignore ban-ts-comment
-        // @ts-ignore
-        const { error } = await supabase.auth.getUser(token);
-        if (error) {
-            throw error;
-        }
-
         return {
-            supabase,
+            supabase: this.createClient({ authHeader }),
             role: "authenticated",
         };
     }

@@ -11,8 +11,8 @@ export class ServiceFactory {
         this.supabaseAdminInstance = supabaseFactory.createSupabaseAdmin();
     }
 
-    async createProfileService(req: Request) {
-        return new ProfileService(await this.supabaseFactory.createSupabaseAuthenticated(req));
+    createProfileService(req: Request) {
+        return new ProfileService(this.supabaseFactory.createSupabaseAuthenticated(req));
     }
 
     static getDefault() {
