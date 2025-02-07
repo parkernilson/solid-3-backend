@@ -5,7 +5,7 @@ PROJECT_ROOT=$(git rev-parse --show-toplevel)
 
 TYPES=$(supabase gen types typescript --local)
 OUT_FILE_PATH=$PROJECT_ROOT/../web/src/lib/supabase/database.types.ts
-OUT_FILE_PATH_2=$PROJECT_ROOT/supabase/database.types.ts
+OUT_FILE_PATH_2=$PROJECT_ROOT/supabase/functions/_shared/supabase/database.types.ts
 OUT_FILE_PATH_3=$PROJECT_ROOT/../playground/database.types.ts
 
 # Prompt the user
