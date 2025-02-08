@@ -1,5 +1,5 @@
-import type { Database } from "../supabase/database.types.ts";
 import { createClient } from "jsr:@supabase/supabase-js";
+import type { Database } from "../supabase/database.types.ts";
 
 import type {
     SupabaseAdmin,

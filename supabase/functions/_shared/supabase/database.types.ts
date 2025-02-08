@@ -108,17 +108,17 @@ export type Database = {
         Row: {
           email: string
           id: string
-          profile_image_url: string | null
+          profile_image_path: string | null
         }
         Insert: {
           email: string
           id: string
-          profile_image_url?: string | null
+          profile_image_path?: string | null
         }
         Update: {
           email?: string
           id?: string
-          profile_image_url?: string | null
+          profile_image_path?: string | null
         }
         Relationships: []
       }
@@ -283,12 +283,12 @@ export type Database = {
         Args: {
           _user_id: string
           _email?: string
-          _profile_image_url?: string
+          _profile_image_path?: string
         }
         Returns: {
           email: string
           id: string
-          profile_image_url: string | null
+          profile_image_path: string | null
         }
       }
       upsert_entry: {
