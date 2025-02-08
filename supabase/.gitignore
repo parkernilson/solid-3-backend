@@ -2,3 +2,5 @@
 .branches
 
 seed.sql
+.env
+.env.local
