@@ -175,6 +175,7 @@ export type Database = {
           goal_id: string | null
           goal_owner_email: string | null
           goal_owner_id: string | null
+          goal_owner_profile_image_path: string | null
           goal_title: string | null
           share_record_id: number | null
           share_status: Database["public"]["Enums"]["shared_goal_status"] | null
@@ -189,6 +190,7 @@ export type Database = {
           goal_id: string | null
           owner: string | null
           owner_email: string | null
+          owner_profile_image_path: string | null
           shared_on: string | null
           shared_with: string | null
           title: string | null
