@@ -237,6 +237,29 @@ export type Database = {
         }
         Returns: undefined
       }
+      conditional_update_params: {
+        Args: {
+          set_vals: Json
+          permitted_key_to_col_map: Json
+        }
+        Returns: string
+      }
+      create_entry: {
+        Args: {
+          _goal_id: string
+          _success: boolean
+          _date_of: string
+          _text_content?: string
+        }
+        Returns: {
+          created_at: string
+          date_of: string
+          goal: string
+          id: string
+          success: boolean
+          text_content: string | null
+        }
+      }
       create_goal: {
         Args: {
           _title: string
@@ -281,6 +304,20 @@ export type Database = {
         }
         Returns: undefined
       }
+      update_entry: {
+        Args: {
+          _entry_id: string
+          _update_values: Json
+        }
+        Returns: {
+          created_at: string
+          date_of: string
+          goal: string
+          id: string
+          success: boolean
+          text_content: string | null
+        }
+      }
       update_profile: {
         Args: {
           _user_id: string
@@ -291,23 +328,6 @@ export type Database = {
           email: string
           id: string
           profile_image_path: string | null
-        }
-      }
-      upsert_entry: {
-        Args: {
-          _goal_id: string
-          _entry_id?: string
-          _success?: boolean
-          _text_content?: string
-          _date_of?: string
-        }
-        Returns: {
-          created_at: string
-          date_of: string
-          goal: string
-          id: string
-          success: boolean
-          text_content: string | null
         }
       }
     }

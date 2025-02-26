@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/supabase/ddl/conditional_update_params.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/supabase/ddl/entries.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/supabase/migrations/20241019201647_create_user_function_and_secrets.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/supabase/seed/seed_sql/2_seed_goals_and_entries/0_seed_goals_and_entries.sql" dialect="PostgreSQL" />
+    <file url="PROJECT" dialect="PostgreSQL" />
   </component>
 </project>
