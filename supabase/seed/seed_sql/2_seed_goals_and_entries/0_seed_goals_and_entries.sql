@@ -7,17 +7,30 @@ declare
     cur_date date;
     should_create_entry boolean;
     is_successful boolean;
+    text_content_null boolean;
     success_messages text[] := array[
+        -- 2 chars (emoji)
+        '👍',
+        -- 20 chars
         'Great workout today!',
+        -- 27 chars
         'Completed my exercise goal!',
-        'Feeling strong after exercise',
-        'Another successful workout day'
+        -- 76 chars
+        'This weekend I am planning on doing something that takes a little more time.',
+        -- 200 chars
+        'Crushed legs today. 5x5 squats @ 245lbs, lunges 3x12 each side. Hamstring curls felt stronger. Calves still weak point. Cardio: 15 min HIIT. Energy good despite lack of sleep. Push harder tomorrow.'
     ];
     failure_messages text[] := array[
-        'Missed workout today',
-        'Not feeling well, skipped exercise',
-        'Too busy today for workout',
-        'Will try again tomorrow'
+        -- 2 chars (emoji)
+        '😴',
+        -- 21 chars
+        'Missed workout today.',
+        -- 27 chars
+        'No exercise, feeling tired.',
+        -- 78 chars
+        'Couldn''t make it to the gym today due to unexpected work. Will reschedule soon.',
+        -- 279 chars
+        'Skipped training today. Woke up with sore throat and slight fever. Tried to push through but body needs rest. Taking meds and hydrating extra. Will do light stretching instead of planned heavy session. Hope to recover by Friday for weekend long run. Need to improve sleep habits.'
     ];
 begin
     select u.id into user_1_id from auth.users u where u.email = 'danexample@gmail.com';
@@ -39,12 +52,15 @@ begin
         should_create_entry := random() < 0.8;
 
         if should_create_entry then
+            text_content_null := random() < 0.2;
             is_successful := random() < 0.75;
 
             insert into public.entries (goal, text_content, success, date_of)
             values (
                 goal_1_id,
                 case
+                    when text_content_null then
+                        null
                     when is_successful then
                         success_messages[1 + floor(random() * array_length(success_messages, 1))::int]
                     else
@@ -55,6 +71,8 @@ begin
             ), (
                 goal_2_id,
                 case
+                    when text_content_null then
+                        null
                     when is_successful then
                         success_messages[1 + floor(random() * array_length(success_messages, 1))::int]
                     else
