@@ -88,18 +88,21 @@ export type Database = {
           created_at: string
           id: string
           owner: string
+          start_date: string
           title: string
         }
         Insert: {
           created_at?: string
           id?: string
           owner: string
+          start_date?: string
           title: string
         }
         Update: {
           created_at?: string
           id?: string
           owner?: string
+          start_date?: string
           title?: string
         }
         Relationships: []
@@ -193,6 +196,7 @@ export type Database = {
           owner_profile_image_path: string | null
           shared_on: string | null
           shared_with: string | null
+          start_date: string | null
           title: string | null
         }
         Relationships: []
@@ -268,6 +272,7 @@ export type Database = {
           created_at: string
           id: string
           owner: string
+          start_date: string
           title: string
         }
       }

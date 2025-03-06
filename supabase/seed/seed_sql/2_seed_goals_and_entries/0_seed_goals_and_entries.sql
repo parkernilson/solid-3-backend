@@ -36,16 +36,16 @@ begin
     select u.id into user_1_id from auth.users u where u.email = 'danexample@gmail.com';
     select u.id into user_2_id from auth.users u where u.email = 'sabrinatest@gmail.com';
 
-    insert into public.goals (title, owner)
-    values ('Exercise every day', user_1_id)
-    returning id into goal_1_id;
-
-    insert into public.goals (title, owner)
-    values ('Exercise every day', user_2_id)
-    returning id into goal_2_id;
-
     -- Start from a year ago and loop forward
     cur_date := now() - interval '1 year';
+
+    insert into public.goals (title, owner, start_date)
+    values ('Exercise every day', user_1_id, cur_date)
+    returning id into goal_1_id;
+
+    insert into public.goals (title, owner, start_date)
+    values ('Exercise every day', user_2_id, cur_date)
+    returning id into goal_2_id;
 
     -- Loop for 365 days
     for i in 1..365 loop
